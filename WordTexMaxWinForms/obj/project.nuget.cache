@@ -1,0 +1,44 @@
+{
+  "version": 2,
+  "dgSpecHash": "5nR4Icq3+w+9JvnDRCkJjAdyM2V6Xmc6kwL0PgK/wkIymtVsLpslIYajoFMojxKWBDNg1EX3nzI5vAuTHuitnA==",
+  "success": false,
+  "projectFilePath": "/home/renato/projetos/organize/uztec/wordlatex/WordTexMaxWinForms/WordTexMaxWinForms.csproj",
+  "expectedPackageFiles": [
+    "/home/renato/.nuget/packages/bouncycastle.cryptography/2.3.1/bouncycastle.cryptography.2.3.1.nupkg.sha512",
+    "/home/renato/.nuget/packages/docx/2.5.0/docx.2.5.0.nupkg.sha512",
+    "/home/renato/.nuget/packages/enums.net/4.0.1/enums.net.4.0.1.nupkg.sha512",
+    "/home/renato/.nuget/packages/extendednumerics.bigdecimal/2025.1001.2.129/extendednumerics.bigdecimal.2025.1001.2.129.nupkg.sha512",
+    "/home/renato/.nuget/packages/mathnet.numerics.signed/5.0.0/mathnet.numerics.signed.5.0.0.nupkg.sha512",
+    "/home/renato/.nuget/packages/microsoft.io.recyclablememorystream/3.0.0/microsoft.io.recyclablememorystream.3.0.0.nupkg.sha512",
+    "/home/renato/.nuget/packages/microsoft.netcore.platforms/5.0.0/microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "/home/renato/.nuget/packages/microsoft.win32.systemevents/6.0.0/microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "/home/renato/.nuget/packages/npoi/2.7.1/npoi.2.7.1.nupkg.sha512",
+    "/home/renato/.nuget/packages/questpdf/2024.10.3/questpdf.2024.10.3.nupkg.sha512",
+    "/home/renato/.nuget/packages/sharpziplib/1.4.2/sharpziplib.1.4.2.nupkg.sha512",
+    "/home/renato/.nuget/packages/sixlabors.fonts/1.0.1/sixlabors.fonts.1.0.1.nupkg.sha512",
+    "/home/renato/.nuget/packages/sixlabors.imagesharp/2.1.8/sixlabors.imagesharp.2.1.8.nupkg.sha512",
+    "/home/renato/.nuget/packages/system.configuration.configurationmanager/6.0.0/system.configuration.configurationmanager.6.0.0.nupkg.sha512",
+    "/home/renato/.nuget/packages/system.drawing.common/6.0.0/system.drawing.common.6.0.0.nupkg.sha512",
+    "/home/renato/.nuget/packages/system.formats.asn1/6.0.0/system.formats.asn1.6.0.0.nupkg.sha512",
+    "/home/renato/.nuget/packages/system.io.packaging/4.5.0/system.io.packaging.4.5.0.nupkg.sha512",
+    "/home/renato/.nuget/packages/system.runtime.compilerservices.unsafe/5.0.0/system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",
+    "/home/renato/.nuget/packages/system.security.accesscontrol/6.0.0/system.security.accesscontrol.6.0.0.nupkg.sha512",
+    "/home/renato/.nuget/packages/system.security.cryptography.pkcs/6.0.3/system.security.cryptography.pkcs.6.0.3.nupkg.sha512",
+    "/home/renato/.nuget/packages/system.security.cryptography.protecteddata/6.0.0/system.security.cryptography.protecteddata.6.0.0.nupkg.sha512",
+    "/home/renato/.nuget/packages/system.security.cryptography.xml/6.0.1/system.security.cryptography.xml.6.0.1.nupkg.sha512",
+    "/home/renato/.nuget/packages/system.security.permissions/6.0.0/system.security.permissions.6.0.0.nupkg.sha512",
+    "/home/renato/.nuget/packages/system.text.encoding.codepages/5.0.0/system.text.encoding.codepages.5.0.0.nupkg.sha512",
+    "/home/renato/.nuget/packages/system.windows.extensions/6.0.0/system.windows.extensions.6.0.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1103",
+      "level": "Error",
+      "message": "Unable to find a stable package UglyToad.PdfPig with version (>= 0.1.9)\n  - Found 2 version(s) in nuget.org [ Nearest version: 1.7.0-custom-5 ]",
+      "libraryId": "UglyToad.PdfPig",
+      "targetGraphs": [
+        "net8.0-windows7.0"
+      ]
+    }
+  ]
+}
