@@ -1,4 +1,4 @@
-using NPOI.XWPF.UserModel;
+
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -33,9 +33,6 @@ public class DocumentImporter
                     break;
                 case ".docx":
                     ImportDocx(filePath, richTextBox);
-                    break;
-                case ".doc":
-                    ImportDoc(filePath, richTextBox);
                     break;
                 case ".odt":
                     ImportOdt(filePath, richTextBox);
@@ -113,26 +110,7 @@ public class DocumentImporter
         richTextBox.Select(0, 0);
     }
 
-    private void ImportDoc(string filePath, RichTextBox richTextBox)
-    {
-        using var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-        var doc = new HWPFDocument(fs);
-        var range = doc.GetRange();
 
-        richTextBox.Clear();
-
-        // Extract plain text (NPOI has limited formatting support for .doc)
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < range.NumParagraphs; i++)
-        {
-            var paragraph = range.GetParagraph(i);
-            sb.AppendLine(paragraph.Text);
-        }
-
-        richTextBox.Text = sb.ToString();
-        MessageBox.Show("DOC format imported as plain text. Formatting may be lost.",
-            "Import Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
-    }
 
     private void ImportOdt(string filePath, RichTextBox richTextBox)
     {
