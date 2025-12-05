@@ -1,5 +1,10 @@
-using UzunTec.WordTexMax.Services;
+using System;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
 using UzunTec.WordTexMax.Forms;
+using UzunTec.WordTexMax.Models;
+using UzunTec.WordTexMax.Services;
 
 namespace UzunTec.WordTexMax;
 
@@ -33,7 +38,7 @@ public partial class MainForm : Form
         // MenuStrip
         menuStrip = new MenuStrip();
         var fileMenu = new ToolStripMenuItem("File");
-        
+
         fileMenu.DropDownItems.Add("Open...", null, MenuOpen_Click);
         fileMenu.DropDownItems.Add(new ToolStripSeparator());
         fileMenu.DropDownItems.Add("Save As RTF...", null, MenuSaveRtf_Click);
@@ -44,7 +49,7 @@ public partial class MainForm : Form
         fileMenu.DropDownItems.Add("Export with Template...", null, MenuExportWithTemplate_Click);
         fileMenu.DropDownItems.Add(new ToolStripSeparator());
         fileMenu.DropDownItems.Add("Exit", null, (s, e) => Application.Exit());
-        
+
         menuStrip.Items.Add(fileMenu);
 
         // ToolStrip
@@ -54,13 +59,13 @@ public partial class MainForm : Form
         toolStrip.Items.Add(CreateButton("Underline", "U", BtnUnderline_Click, FontStyle.Underline));
         toolStrip.Items.Add(CreateButton("Strikeout", "S", BtnStrikeout_Click, FontStyle.Strikeout));
         toolStrip.Items.Add(new ToolStripSeparator());
-        
+
         var cmbHeading = new ToolStripComboBox("Heading");
         cmbHeading.Items.AddRange(new object[] { "Normal", "Heading 1", "Heading 2", "Heading 3" });
         cmbHeading.SelectedIndex = 0;
         cmbHeading.SelectedIndexChanged += CmbHeading_SelectedIndexChanged;
         toolStrip.Items.Add(cmbHeading);
-        
+
         toolStrip.Items.Add(new ToolStripSeparator());
         toolStrip.Items.Add(CreateButton("Bullet List", "•", BtnBulletList_Click));
         toolStrip.Items.Add(CreateButton("Code Block", "{}", BtnCodeBlock_Click));
@@ -222,7 +227,7 @@ public partial class MainForm : Form
         if (dialog.ShowDialog() == DialogResult.OK)
         {
             exporter.ExportToRtf(editor, dialog.FileName);
-            MessageBox.Show("Document saved successfully!", "Success", 
+            MessageBox.Show("Document saved successfully!", "Success",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
@@ -238,7 +243,7 @@ public partial class MainForm : Form
         if (dialog.ShowDialog() == DialogResult.OK)
         {
             exporter.ExportToDocx(editor, dialog.FileName);
-            MessageBox.Show("Document saved successfully!", "Success", 
+            MessageBox.Show("Document saved successfully!", "Success",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
@@ -254,7 +259,7 @@ public partial class MainForm : Form
         if (dialog.ShowDialog() == DialogResult.OK)
         {
             exporter.ExportToPdf(editor, dialog.FileName);
-            MessageBox.Show("PDF exported successfully!", "Success", 
+            MessageBox.Show("PDF exported successfully!", "Success",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
@@ -270,7 +275,7 @@ public partial class MainForm : Form
         if (dialog.ShowDialog() == DialogResult.OK)
         {
             exporter.ExportToLatex(editor, dialog.FileName);
-            MessageBox.Show("LaTeX exported successfully!", "Success", 
+            MessageBox.Show("LaTeX exported successfully!", "Success",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
@@ -278,12 +283,12 @@ public partial class MainForm : Form
     private void MenuExportWithTemplate_Click(object? sender, EventArgs e)
     {
         using var templateDialog = new TemplateDialog(templateManager);
-        
+
         if (templateDialog.ShowDialog() == DialogResult.OK)
         {
             if (templateDialog.SelectedTemplate == null)
             {
-                MessageBox.Show("No template selected.", "Error", 
+                MessageBox.Show("No template selected.", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -298,16 +303,16 @@ public partial class MainForm : Form
             {
                 // Get content without preamble
                 string content = converter.ConvertToLatexContent(editor);
-                
+
                 // Apply template
                 string latex = templateManager.ApplyTemplate(
-                    templateDialog.SelectedTemplate, 
-                    templateDialog.Metadata, 
+                    templateDialog.SelectedTemplate,
+                    templateDialog.Metadata,
                     content);
-                
+
                 File.WriteAllText(saveDialog.FileName, latex);
-                
-                MessageBox.Show("LaTeX exported with template successfully!", "Success", 
+
+                MessageBox.Show("LaTeX exported with template successfully!", "Success",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }

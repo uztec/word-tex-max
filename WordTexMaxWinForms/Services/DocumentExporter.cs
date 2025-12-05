@@ -1,6 +1,9 @@
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
 using Xceed.Words.NET;
 
 namespace UzunTec.WordTexMax.Services;

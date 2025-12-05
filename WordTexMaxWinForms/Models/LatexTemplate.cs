@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace UzunTec.WordTexMax.Models;
 
 public class LatexTemplate

@@ -1,5 +1,9 @@
+using System;
+using System.Drawing;
+using System.Windows.Forms;
 using UzunTec.WordTexMax.Models;
 using UzunTec.WordTexMax.Services;
+
 
 namespace UzunTec.WordTexMax.Forms;
 
@@ -13,7 +17,7 @@ public class TemplateDialog : Form
     private TextBox txtPreview;
     private Button btnOk;
     private Button btnCancel;
-    
+
     private LatexTemplateManager templateManager;
     public LatexTemplate? SelectedTemplate { get; private set; }
     public LatexMetadata Metadata { get; private set; }
@@ -74,11 +78,11 @@ public class TemplateDialog : Form
 
         // Preview
         mainLayout.Controls.Add(new Label { Text = "Preview:", TextAlign = ContentAlignment.TopRight, Padding = new Padding(0, 5, 0, 0) }, 0, 5);
-        txtPreview = new TextBox 
-        { 
-            Dock = DockStyle.Fill, 
-            Multiline = true, 
-            ReadOnly = true, 
+        txtPreview = new TextBox
+        {
+            Dock = DockStyle.Fill,
+            Multiline = true,
+            ReadOnly = true,
             Font = new Font("Consolas", 9),
             ScrollBars = ScrollBars.Vertical,
             BackColor = Color.FromArgb(250, 250, 250)
@@ -118,7 +122,7 @@ public class TemplateDialog : Form
     {
         var templates = templateManager.GetAllTemplates();
         cmbTemplates.Items.Clear();
-        
+
         foreach (var template in templates)
         {
             cmbTemplates.Items.Add(template.Name);
@@ -146,7 +150,7 @@ public class TemplateDialog : Form
     private void UpdatePreview(LatexTemplate template)
     {
         var preview = new System.Text.StringBuilder();
-        
+
         // Document class
         var classOptions = string.Join(",", template.ClassOptions);
         if (!string.IsNullOrEmpty(classOptions))
@@ -157,24 +161,24 @@ public class TemplateDialog : Form
         {
             preview.AppendLine($"\\documentclass{{{template.DocumentClass}}}");
         }
-        
+
         preview.AppendLine();
-        
+
         // Show first few packages
         var packageCount = Math.Min(5, template.Packages.Count);
         for (int i = 0; i < packageCount; i++)
         {
             preview.AppendLine(template.Packages[i].ToString());
         }
-        
+
         if (template.Packages.Count > 5)
         {
             preview.AppendLine($"... and {template.Packages.Count - 5} more packages");
         }
-        
+
         preview.AppendLine();
         preview.AppendLine(template.Preamble);
-        
+
         if (!string.IsNullOrEmpty(template.CustomCommands))
         {
             preview.AppendLine();
@@ -189,7 +193,7 @@ public class TemplateDialog : Form
     {
         if (cmbTemplates.SelectedItem == null)
         {
-            MessageBox.Show("Please select a template.", "Validation Error", 
+            MessageBox.Show("Please select a template.", "Validation Error",
                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
             this.DialogResult = DialogResult.None;
             return;

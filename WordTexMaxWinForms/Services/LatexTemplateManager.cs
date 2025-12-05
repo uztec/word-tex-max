@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text.Json;
 using UzunTec.WordTexMax.Models;
 
@@ -28,17 +32,17 @@ public class LatexTemplateManager
     {
         var customDir = Path.Combine(templatesDirectory, "custom");
         Directory.CreateDirectory(customDir);
-        
+
         var fileName = $"{template.Name.Replace(" ", "_").ToLower()}.json";
         var filePath = Path.Combine(customDir, fileName);
-        
-        var json = JsonSerializer.Serialize(template, new JsonSerializerOptions 
-        { 
-            WriteIndented = true 
+
+        var json = JsonSerializer.Serialize(template, new JsonSerializerOptions
+        {
+            WriteIndented = true
         });
-        
+
         File.WriteAllText(filePath, json);
-        
+
         // Reload templates
         LoadCustomTemplates();
     }
@@ -52,7 +56,7 @@ public class LatexTemplateManager
         templates.Add(CreateBeamerTemplate());
         templates.Add(CreateLetterTemplate());
         templates.Add(CreateCVTemplate());
-        
+
         // Scientific/Academic templates
         templates.Add(CreateIEEETemplate());
         templates.Add(CreateACMTemplate());
@@ -212,7 +216,7 @@ public class LatexTemplateManager
     public string ApplyTemplate(LatexTemplate template, LatexMetadata metadata, string content)
     {
         var sb = new System.Text.StringBuilder();
-        
+
         // Document class
         var classOptions = string.Join(",", template.ClassOptions);
         if (!string.IsNullOrEmpty(classOptions))
@@ -223,34 +227,34 @@ public class LatexTemplateManager
         {
             sb.AppendLine($"\\documentclass{{{template.DocumentClass}}}");
         }
-        
+
         sb.AppendLine();
-        
+
         // Packages
         foreach (var package in template.Packages)
         {
             sb.AppendLine(package.ToString());
         }
-        
+
         sb.AppendLine();
-        
+
         // Custom commands
         if (!string.IsNullOrEmpty(template.CustomCommands))
         {
             sb.AppendLine(template.CustomCommands);
             sb.AppendLine();
         }
-        
+
         // Preamble with metadata
         var preamble = template.Preamble
             .Replace("{{TITLE}}", metadata.Title)
             .Replace("{{AUTHOR}}", metadata.Author)
             .Replace("{{DATE}}", metadata.Date);
         sb.AppendLine(preamble);
-        
+
         sb.AppendLine();
         sb.AppendLine("\\begin{document}");
-        
+
         // Title page
         if (template.DocumentClass == "beamer")
         {
@@ -260,9 +264,9 @@ public class LatexTemplateManager
         {
             sb.AppendLine("\\maketitle");
         }
-        
+
         sb.AppendLine();
-        
+
         // Abstract
         if (template.IncludeAbstract && !string.IsNullOrEmpty(metadata.Abstract))
         {
@@ -271,18 +275,18 @@ public class LatexTemplateManager
             sb.AppendLine("\\end{abstract}");
             sb.AppendLine();
         }
-        
+
         // Content
         sb.AppendLine(content);
-        
+
         sb.AppendLine();
         sb.AppendLine("\\end{document}");
-        
+
         return sb.ToString();
     }
-    
+
     // Scientific/Academic Templates
-    
+
     private LatexTemplate CreateIEEETemplate()
     {
         return new LatexTemplate
@@ -307,7 +311,7 @@ public class LatexTemplateManager
             CustomCommands = "% IEEE specific commands\n\\hyphenation{op-tical net-works semi-conduc-tor}"
         };
     }
-    
+
     private LatexTemplate CreateACMTemplate()
     {
         return new LatexTemplate
@@ -326,7 +330,7 @@ public class LatexTemplateManager
             CustomCommands = "\\copyrightyear{2024}\n\\acmYear{2024}\n\\setcopyright{acmlicensed}"
         };
     }
-    
+
     private LatexTemplate CreateThesisTemplate()
     {
         return new LatexTemplate
@@ -352,7 +356,7 @@ public class LatexTemplateManager
             CustomCommands = "% Thesis specific\n\\newcommand{\\university}{Your University}\n\\newcommand{\\department}{Department Name}\n\\newcommand{\\degree}{Master of Science}"
         };
     }
-    
+
     private LatexTemplate CreateDissertationTemplate()
     {
         return new LatexTemplate
@@ -380,7 +384,7 @@ public class LatexTemplateManager
             CustomCommands = "% Dissertation specific\n\\newtheorem{theorem}{Theorem}[chapter]\n\\newtheorem{lemma}[theorem]{Lemma}\n\\newtheorem{proposition}[theorem]{Proposition}\n\\newtheorem{corollary}[theorem]{Corollary}"
         };
     }
-    
+
     private LatexTemplate CreateConferencePaperTemplate()
     {
         return new LatexTemplate
@@ -404,7 +408,7 @@ public class LatexTemplateManager
             CustomCommands = "% Conference paper formatting\n\\setlength{\\columnsep}{0.25in}"
         };
     }
-    
+
     private LatexTemplate CreateJournalArticleTemplate()
     {
         return new LatexTemplate
